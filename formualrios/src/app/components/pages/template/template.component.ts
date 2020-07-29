@@ -12,14 +12,23 @@ export class TemplateComponent implements OnInit {
   usuario = {
     nombre: 'Yoe',
     apellido: 'Cardenas',
-    correo: 'yac8807@gmail.com'
+    correo: 'yac8807@gmail.com',
+    pais: 'COL',
+    genero: 'M'
   };
+
+  paises: any[] = [];
 
   constructor( private paisService: PaisService ) { }
 
   ngOnInit(): void {
     this.paisService.getPaises().subscribe(paises => {
-      console.log(paises);
+      this.paises = paises;
+
+      this.paises.unshift({
+        nombre: 'Seleccione pais',
+        codigo: ''
+      });
     });
   }
 
@@ -30,6 +39,8 @@ export class TemplateComponent implements OnInit {
       Object.values( form.controls ).forEach(control => {
         control.markAllAsTouched();
       });
+
+      return;
     }
 
     console.log(form.value);
