@@ -4,7 +4,7 @@
     <div>
         <div class="form-group row">
             <label class="col-2 col-form-label">Nombre</label>
-            <div class="col-8">
+            <div class="col">
                 <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="getNoValido('nombre')">
                 <small class="text-danger" *ngIf="getNoValido('nombre')">Ingrese el nombre</small>
             </div>
@@ -12,24 +12,91 @@
 
         <div class="form-group row">
             <label class="col-2 col-form-label">Apellido</label>
-            <div class="col-8">
+            <div class="col">
                 <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido" [class.is-invalid]="getNoValido('apellido')">
-                <small class="text-danger" *ngIf="getNoValido('apellido')">Ingrese el apellido</small>
+                <small class="text-danger" *ngIf="getNoValido('apellido')">Ingrese otro apellido</small>
             </div>
         </div>
     </div>
 
     <div class="form-group row">
         <label class="col-2 col-form-label">Correo</label>
-        <div class="col-8">
+        <div class="col">
             <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="correo" [class.is-invalid]="getNoValido('correo')">
             <small class="text-danger" *ngIf="getNoValido('correo')">Ingrese correo valido</small>
         </div>
     </div>
 
     <div class="form-group row">
+        <label class="col-2 col-form-label">Usuario</label>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="Nombre de usuario" formControlName="usuario" [class.is-invalid]="getNoValido('usuario')">
+            <small class="text-danger" *ngIf="getNoValido('usuario')">Nombre de usuario ya registrado</small>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Contraseña</label>
+        <div class="col">
+            <input class="form-control" type="password" placeholder="Contraseña" formControlName="password1" [class.is-invalid]="getNoValido('password1')">
+            <small class="text-danger" *ngIf="getNoValido('password1')">Contraseña no valida</small>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Repita contraseña</label>
+        <div class="col">
+            <input class="form-control" type="password" placeholder="Repita contraseña" formControlName="password2" [class.is-invalid]="getNoValido('password2')">
+            <small class="text-danger" *ngIf="getNoValido('password2')">Contraseña no valida</small>
+        </div>
+    </div>
+
+    <div class="form-group row" formGroupName="direccion">
+        <label class="col-2 col-form-label">Dirección</label>
+        <div class="form-row col">
+
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Departamento" formControlName="departamento" [class.is-invalid]="getNoValido('direccion.departamento')">
+                <small class="text-danger" *ngIf="getNoValido('direccion.departamento')">Ingrese departamento</small>
+            </div>
+
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Ciudad" formControlName="ciudad" [class.is-invalid]="getNoValido('direccion.ciudad')">
+                <small class="text-danger" *ngIf="getNoValido('direccion.ciudad')">Ingrese ciudad</small>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Pasa Tiempo</th>
+                        <th>Borrar</th>
+                    </tr>
+                </thead>
+                <tbody formArrayName="pasaTiempos">
+                    <tr *ngFor="let pasaTiempos of getPasaTiempos.controls; let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>
+                            <input class="form-control" type="text" [formControlName]="i">
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" (click)="borrarPasaTiempo(i)">Borrar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-primary mt-3 mb-5 btn-block" type="button" (click)="agregarPasaTiempo()">+ Agregar</button>
+        </div>
+    </div>
+
+    <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>
-        <div class="input-group col-md-8">
+        <div class="input-group col">
             <button type="submit" class="btn btn-outline-primary btn-block">Guardar</button>
         </div>
     </div>
